@@ -1,0 +1,55 @@
+<div class="tab">
+  <button class="tablinks" (click)="openTab('all')" [class.active]="activeTab === 'all'">All</button>
+  <button class="tablinks" (click)="openTab('recommendations')" [class.active]="activeTab === 'recommendations'">Recommendations</button>
+</div>
+  
+  <div id="all" class="tabcontent" *ngIf="activeTab === 'all'">
+    <div class="row">
+      <div class="column" *ngFor="let book of books">
+         <div class="card">
+            <img [src]="'data:image/jpeg;base64,' + book.cover" alt="{{book.title}}">
+          <div class="container">
+            <h2>{{book.title}}</h2>
+            <div>
+              <p>Rating: {{book.rating}}</p>
+              <p>Reviews: {{book.reviewsNumber}}</p>
+            </div>
+          </div>
+          <div class="button-group">
+            <button (click)="openBookDetailsModal()">View</button>
+            <button (click)="openBookEditModalHandler(book)">Edit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div id="recommendations" class="tabcontent" *ngIf="activeTab === 'recommendations'">
+    <div class="row-selector">
+      <div class="column-selector">
+        <select [(ngModel)]="selectedGenre">
+          <option value="">All Genres</option>
+          <option *ngFor="let genre of genres" [value]="genre">{{ genre }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="row-selector">
+      <div class="column-selector" *ngFor="let book of recommendedBooks">
+        <div class="card">
+          <img [src]="'data:image/jpeg;base64,' + book.cover" alt="{{book.title}}">
+        <div class="container">
+          <h2>{{book.title}}</h2>
+          <div>
+            <p>Rating: {{book.rating}}</p>
+            <p>Reviews: {{book.reviewsNumber}}</p>
+          </div>
+        </div>
+        <div class="button-group">
+          <button (click)="openBookDetailsModal()">View</button>
+          <button (click)="openBookEditModalHandler(book)">Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
